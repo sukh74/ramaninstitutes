@@ -1,0 +1,654 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Raman Institute - Abacus, Vedic Maths, Robotics & STEM in Noida</title>
+    
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&family=Fredoka:wght@400;600&display=swap" rel="stylesheet">
+    
+    <!-- FontAwesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <!-- Markdown Parser for AI responses -->
+    <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
+
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['Poppins', 'sans-serif'],
+                        display: ['Fredoka', 'sans-serif'], // Friendly font for headings
+                    },
+                    colors: {
+                        brand: {
+                            blue: '#2563EB',
+                            dark: '#1E3A8A',
+                            orange: '#F97316',
+                            yellow: '#FACC15',
+                            light: '#EFF6FF',
+                            purple: '#9333ea'
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+    
+    <style>
+        /* Custom Styles for things Tailwind doesn't cover easily */
+        .blob-shape {
+            border-radius: 30% 70% 70% 30% / 30% 30% 70% 70%;
+        }
+        .hero-gradient {
+            background: linear-gradient(135deg, #EFF6FF 0%, #DBEAFE 100%);
+        }
+        .ai-gradient {
+            background: linear-gradient(135deg, #e0e7ff 0%, #f3e8ff 100%);
+        }
+        .text-shadow {
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.1);
+        }
+        /* Loading Spinner */
+        .loader {
+            border: 3px solid #f3f3f3;
+            border-radius: 50%;
+            border-top: 3px solid #F97316;
+            width: 20px;
+            height: 20px;
+            -webkit-animation: spin 1s linear infinite; /* Safari */
+            animation: spin 1s linear infinite;
+        }
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+    </style>
+</head>
+<body class="font-sans text-gray-700 antialiased selection:bg-brand-orange selection:text-white">
+
+    <!-- Navbar -->
+    <nav class="fixed w-full z-50 bg-white/95 backdrop-blur-md shadow-sm transition-all duration-300" id="navbar">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between items-center h-20">
+                <!-- Logo -->
+                <div class="flex items-center">
+                    <a href="#" class="flex items-center gap-2">
+                        <div class="w-10 h-10 bg-brand-blue rounded-lg flex items-center justify-center text-white text-xl font-bold font-display">R</div>
+                        <span class="font-display font-bold text-2xl text-gray-800">Raman Institutes<span class="text-brand-orange">.</span></span>
+                    </a>
+                </div>
+
+                <!-- Desktop Menu -->
+                <div class="hidden md:flex items-center space-x-8">
+                    <a href="#home" class="text-gray-600 hover:text-brand-blue font-medium transition">Home</a>
+                    <a href="#courses" class="text-gray-600 hover:text-brand-blue font-medium transition">Courses</a>
+                    <a href="#ai-lab" class="text-brand-purple hover:text-purple-700 font-medium transition flex items-center gap-1"><i class="fas fa-sparkles text-sm"></i> AI Lab</a>
+                    <a href="#about" class="text-gray-600 hover:text-brand-blue font-medium transition">About Us</a>
+                    <a href="#locations" class="text-gray-600 hover:text-brand-blue font-medium transition">Locations</a>
+                    <a href="#contact" class="bg-brand-orange hover:bg-orange-600 text-white px-6 py-2.5 rounded-full font-medium transition shadow-lg shadow-orange-200 transform hover:-translate-y-0.5">
+                        Book Free Trial
+                    </a>
+                </div>
+
+                <!-- Mobile menu button -->
+                <div class="md:hidden flex items-center">
+                    <button id="mobile-menu-btn" class="text-gray-600 hover:text-brand-blue focus:outline-none">
+                        <i class="fas fa-bars text-2xl"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Mobile Menu Panel -->
+        <div id="mobile-menu" class="hidden md:hidden bg-white border-t border-gray-100 absolute w-full">
+            <div class="px-4 pt-2 pb-6 space-y-1 shadow-lg">
+                <a href="#home" class="block px-3 py-3 text-base font-medium text-gray-600 hover:text-brand-blue hover:bg-gray-50 rounded-md">Home</a>
+                <a href="#courses" class="block px-3 py-3 text-base font-medium text-gray-600 hover:text-brand-blue hover:bg-gray-50 rounded-md">Courses</a>
+                <a href="#ai-lab" class="block px-3 py-3 text-base font-medium text-brand-purple hover:bg-purple-50 rounded-md"><i class="fas fa-sparkles"></i> AI Lab</a>
+                <a href="#about" class="block px-3 py-3 text-base font-medium text-gray-600 hover:text-brand-blue hover:bg-gray-50 rounded-md">About Us</a>
+                <a href="#locations" class="block px-3 py-3 text-base font-medium text-gray-600 hover:text-brand-blue hover:bg-gray-50 rounded-md">Locations</a>
+                <a href="#contact" class="block w-full text-center mt-4 bg-brand-orange text-white px-3 py-3 rounded-md font-bold">Book Free Trial</a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section id="home" class="pt-28 pb-16 lg:pt-36 lg:pb-24 hero-gradient overflow-hidden relative">
+        <!-- Decoration Circles -->
+        <div class="absolute top-20 right-0 w-64 h-64 bg-blue-200 rounded-full mix-blend-multiply filter blur-3xl opacity-30 animate-pulse"></div>
+        <div class="absolute bottom-0 left-0 w-64 h-64 bg-orange-200 rounded-full mix-blend-multiply filter blur-3xl opacity-30"></div>
+
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative">
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+                <div class="text-center lg:text-left">
+                    <div class="inline-block px-4 py-1.5 bg-blue-100 text-brand-blue rounded-full text-sm font-semibold mb-6">
+                        📍 Head Office Noida Expressway
+                    </div>
+                    <h1 class="text-4xl lg:text-6xl font-display font-bold text-gray-900 leading-tight mb-6">
+                        Ignite Your Child's <span class="text-brand-blue">Genius</span> Potential
+                    </h1>
+                    <p class="text-lg text-gray-600 mb-8 max-w-lg mx-auto lg:mx-0">
+                        Raman Institute empowers kids from Grade 1 onwards with future-ready skills in Robotics & AI, Abacus, Vedic Maths, and STEM.
+                    </p>
+                    <div class="flex flex-col sm:flex-row gap-4 justify-center lg:justify-start">
+                        <a href="#contact" class="bg-brand-blue hover:bg-blue-700 text-white px-8 py-3.5 rounded-full font-semibold text-lg transition shadow-xl shadow-blue-200">
+                            Enquire Now
+                        </a>
+                        <a href="#courses" class="bg-white hover:bg-gray-50 text-gray-700 border border-gray-200 px-8 py-3.5 rounded-full font-semibold text-lg transition flex items-center justify-center gap-2">
+                            <i class="fas fa-play-circle text-brand-orange"></i> Explore Courses
+                        </a>
+                    </div>
+                    
+                    <div class="mt-10 flex items-center justify-center lg:justify-start gap-4 text-sm text-gray-500 font-medium">
+                        <div class="flex items-center gap-1"><i class="fas fa-check text-green-500"></i> Certified Trainers</div>
+                        <div class="flex items-center gap-1"><i class="fas fa-check text-green-500"></i> Small Batches</div>
+                        <div class="flex items-center gap-1"><i class="fas fa-check text-green-500"></i> Hands-on Learning</div>
+                    </div>
+                </div>
+                
+                <div class="relative lg:h-[500px] flex items-center justify-center">
+                    <!-- Image container with blob shape -->
+                    <div class="relative w-full max-w-md aspect-square">
+                        <div class="absolute inset-0 bg-brand-yellow rounded-full opacity-20 transform translate-x-4 translate-y-4"></div>
+                        <img src="https://images.unsplash.com/photo-1509062522246-3755977927d7?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" 
+                             alt="Kid learning robotics" 
+                             class="w-full h-full object-cover rounded-3xl shadow-2xl relative z-10 hover:scale-[1.02] transition duration-500">
+                        
+                        <!-- Floating badge -->
+                        <div class="absolute -bottom-6 -left-6 bg-white p-4 rounded-xl shadow-lg z-20 hidden sm:block animate-bounce" style="animation-duration: 3s;">
+                            <div class="flex items-center gap-3">
+                                <div class="bg-orange-100 p-2 rounded-full text-brand-orange">
+                                    <i class="fas fa-star"></i>
+                                </div>
+                                <div>
+                                    <p class="font-bold text-gray-800">4.9/5 Rating</p>
+                                    <p class="text-xs text-gray-500">Happy Parents</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Courses Section -->
+    <section id="courses" class="py-20 bg-white">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center mb-16">
+                <h2 class="text-brand-orange font-bold tracking-wide uppercase text-sm mb-2">Our Programs</h2>
+                <h3 class="text-3xl md:text-4xl font-display font-bold text-gray-900">Learning Paths for Grades 1st to 9th</h3>
+                <p class="mt-4 text-gray-600 max-w-2xl mx-auto">We combine traditional wisdom with modern technology to create a holistic learning experience.</p>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+                <!-- Course 1: Abacus -->
+                <div class="group bg-white border border-gray-100 rounded-2xl p-6 hover:shadow-xl transition duration-300 hover:-translate-y-2 relative overflow-hidden">
+                    <div class="absolute top-0 right-0 w-20 h-20 bg-blue-50 rounded-bl-full -mr-4 -mt-4 transition group-hover:bg-blue-100"></div>
+                    <div class="w-14 h-14 bg-blue-100 text-brand-blue rounded-xl flex items-center justify-center text-2xl mb-6 relative z-10">
+                        <i class="fas fa-calculator"></i>
+                    </div>
+                    <h4 class="text-xl font-bold text-gray-900 mb-3">Abacus</h4>
+                    <p class="text-gray-600 text-sm mb-4">Boost concentration, memory, and calculation speed through the ancient art of bead manipulation.</p>
+                    <ul class="text-sm text-gray-500 space-y-2 mb-6">
+                        <li class="flex items-center gap-2"><i class="fas fa-check-circle text-blue-400 text-xs"></i> Increase Brain Power</li>
+                        <li class="flex items-center gap-2"><i class="fas fa-check-circle text-blue-400 text-xs"></i> Improve Focus</li>
+                    </ul>
+                </div>
+
+                <!-- Course 2: Vedic Maths -->
+                <div class="group bg-white border border-gray-100 rounded-2xl p-6 hover:shadow-xl transition duration-300 hover:-translate-y-2 relative overflow-hidden">
+                    <div class="absolute top-0 right-0 w-20 h-20 bg-orange-50 rounded-bl-full -mr-4 -mt-4 transition group-hover:bg-orange-100"></div>
+                    <div class="w-14 h-14 bg-orange-100 text-brand-orange rounded-xl flex items-center justify-center text-2xl mb-6 relative z-10">
+                        <i class="fas fa-brain"></i>
+                    </div>
+                    <h4 class="text-xl font-bold text-gray-900 mb-3">Vedic Maths</h4>
+                    <p class="text-gray-600 text-sm mb-4">Master mental arithmetic with simple sutras. Solve complex problems in seconds without a calculator.</p>
+                    <ul class="text-sm text-gray-500 space-y-2 mb-6">
+                        <li class="flex items-center gap-2"><i class="fas fa-check-circle text-orange-400 text-xs"></i> Speed Accuracy</li>
+                        <li class="flex items-center gap-2"><i class="fas fa-check-circle text-orange-400 text-xs"></i> Competitive Edge</li>
+                    </ul>
+                </div>
+
+                <!-- Course 3: Robotics -->
+                <div class="group bg-white border border-gray-100 rounded-2xl p-6 hover:shadow-xl transition duration-300 hover:-translate-y-2 relative overflow-hidden">
+                    <div class="absolute top-0 right-0 w-20 h-20 bg-yellow-50 rounded-bl-full -mr-4 -mt-4 transition group-hover:bg-yellow-100"></div>
+                    <div class="w-14 h-14 bg-yellow-100 text-yellow-600 rounded-xl flex items-center justify-center text-2xl mb-6 relative z-10">
+                        <i class="fas fa-robot"></i>
+                    </div>
+                    <h4 class="text-xl font-bold text-gray-900 mb-3">Robotics</h4>
+                    <p class="text-gray-600 text-sm mb-4">Hands-on experience building and programming robots. Learn mechanics, electronics, and coding.</p>
+                    <ul class="text-sm text-gray-500 space-y-2 mb-6">
+                        <li class="flex items-center gap-2"><i class="fas fa-check-circle text-yellow-500 text-xs"></i> STEM Foundation</li>
+                        <li class="flex items-center gap-2"><i class="fas fa-check-circle text-yellow-500 text-xs"></i> Logical Thinking</li>
+                    </ul>
+                </div>
+
+                <!-- Course 4: STEM -->
+                <div class="group bg-white border border-gray-100 rounded-2xl p-6 hover:shadow-xl transition duration-300 hover:-translate-y-2 relative overflow-hidden">
+                    <div class="absolute top-0 right-0 w-20 h-20 bg-purple-50 rounded-bl-full -mr-4 -mt-4 transition group-hover:bg-purple-100"></div>
+                    <div class="w-14 h-14 bg-purple-100 text-purple-600 rounded-xl flex items-center justify-center text-2xl mb-6 relative z-10">
+                        <i class="fas fa-flask"></i>
+                    </div>
+                    <h4 class="text-xl font-bold text-gray-900 mb-3">STEM</h4>
+                    <p class="text-gray-600 text-sm mb-4">Science, Technology, Engineering, and Math integrated into fun, project-based learning.</p>
+                    <ul class="text-sm text-gray-500 space-y-2 mb-6">
+                        <li class="flex items-center gap-2"><i class="fas fa-check-circle text-purple-400 text-xs"></i> Creativity</li>
+                        <li class="flex items-center gap-2"><i class="fas fa-check-circle text-purple-400 text-xs"></i> Innovation</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </section>
+
+
+
+    <!-- Why Choose Us -->
+    <section id="about" class="py-20 bg-brand-light">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
+                <div class="order-2 lg:order-1 relative">
+                     <img src="https://images.unsplash.com/photo-1544531586-fde5298cdd40?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" 
+                          alt="Teacher helping student" 
+                          class="rounded-3xl shadow-xl w-full object-cover h-[400px]">
+                     <div class="absolute -bottom-6 -right-6 bg-brand-blue text-white p-6 rounded-2xl shadow-lg max-w-xs hidden md:block">
+                         <p class="font-display font-bold text-xl mb-1">5+ Centers</p>
+                         <p class="text-sm opacity-90">Conveniently located across Noida Expressway</p>
+                     </div>
+                </div>
+                
+                <div class="order-1 lg:order-2">
+                    <h2 class="text-brand-blue font-bold tracking-wide uppercase text-sm mb-2">About Raman Institute</h2>
+                    <h3 class="text-3xl md:text-4xl font-display font-bold text-gray-900 mb-6">Why Parents Trust Us</h3>
+                    <p class="text-gray-600 mb-6 leading-relaxed">
+                        At Raman Institutes, we believe every child has a unique potential waiting to be unlocked. Our curriculum is designed not just to teach subjects, but to foster a love for learning.
+                    </p>
+                    
+                    <div class="space-y-6">
+                        <div class="flex">
+                            <div class="flex-shrink-0 mt-1">
+                                <div class="flex items-center justify-center h-10 w-10 rounded-full bg-blue-100 text-brand-blue">
+                                    <i class="fas fa-users"></i>
+                                </div>
+                            </div>
+                            <div class="ml-4">
+                                <h4 class="text-lg font-bold text-gray-900">Personalized Attention</h4>
+                                <p class="text-gray-600 text-sm">Small batch sizes ensure your child gets the focus they deserve.</p>
+                            </div>
+                        </div>
+
+                        <div class="flex">
+                            <div class="flex-shrink-0 mt-1">
+                                <div class="flex items-center justify-center h-10 w-10 rounded-full bg-orange-100 text-brand-orange">
+                                    <i class="fas fa-trophy"></i>
+                                </div>
+                            </div>
+                            <div class="ml-4">
+                                <h4 class="text-lg font-bold text-gray-900">Competition Ready</h4>
+                                <p class="text-gray-600 text-sm">We prepare students for Olympiads and inter-school robotics competitions.</p>
+                            </div>
+                        </div>
+                        
+                        <div class="flex">
+                            <div class="flex-shrink-0 mt-1">
+                                <div class="flex items-center justify-center h-10 w-10 rounded-full bg-yellow-100 text-yellow-600">
+                                    <i class="fas fa-map-marker-alt"></i>
+                                </div>
+                            </div>
+                            <div class="ml-4">
+                                <h4 class="text-lg font-bold text-gray-900">Local Presence</h4>
+                                <p class="text-gray-600 text-sm">Deeply rooted in Noida with centers accessible from all major expressway sectors.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Locations -->
+    <section id="locations" class="py-20 bg-white">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center mb-16">
+                <h3 class="text-3xl md:text-4xl font-display font-bold text-gray-900">Our Centers</h3>
+                <p class="mt-4 text-gray-600">Find a Raman Institute center near you on Noida Expressway.</p>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                <!-- Location 1 -->
+                <div class="bg-gray-50 p-8 rounded-2xl border border-gray-100 text-center hover:border-brand-blue transition">
+                    <div class="w-12 h-12 bg-white rounded-full flex items-center justify-center shadow-sm mx-auto mb-4 text-brand-blue">
+                        <i class="fas fa-building"></i>
+                    </div>
+                    <h4 class="text-xl font-bold text-gray-900 mb-2">Sector 137</h4>
+                    <p class="text-gray-600 text-sm">NOIDA</p>
+                </div>
+
+                <!-- Location 2 -->
+                <div class="bg-gray-50 p-8 rounded-2xl border border-gray-100 text-center hover:border-brand-blue transition">
+                    <div class="w-12 h-12 bg-white rounded-full flex items-center justify-center shadow-sm mx-auto mb-4 text-brand-blue">
+                        <i class="fas fa-building"></i>
+                    </div>
+                    <h4 class="text-xl font-bold text-gray-900 mb-2">Sector 143</h4>
+                    <p class="text-gray-600 text-sm">NOIDA</p>
+                </div>
+
+                <!-- Location 3 -->
+                <div class="bg-gray-50 p-8 rounded-2xl border border-gray-100 text-center hover:border-brand-blue transition">
+                    <div class="w-12 h-12 bg-white rounded-full flex items-center justify-center shadow-sm mx-auto mb-4 text-brand-blue">
+                        <i class="fas fa-building"></i>
+                    </div>
+                    <h4 class="text-xl font-bold text-gray-900 mb-2">Sector 144</h4>
+                    <p class="text-gray-600 text-sm">NOIDA</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- CTA / Contact Section -->
+    <section id="contact" class="py-20 bg-brand-dark text-white relative overflow-hidden">
+        <!-- Background shapes -->
+        <div class="absolute top-0 right-0 -mr-20 -mt-20 w-80 h-80 bg-blue-500 rounded-full opacity-20 filter blur-3xl"></div>
+        <div class="absolute bottom-0 left-0 -ml-20 -mb-20 w-80 h-80 bg-brand-orange rounded-full opacity-10 filter blur-3xl"></div>
+
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-12">
+                <div>
+                    <h3 class="text-3xl md:text-4xl font-display font-bold mb-6">Start Your Child's Journey Today</h3>
+                    <p class="text-blue-100 text-lg mb-8">
+                        Book a free demo class for any of our courses. Visit our centers or talk to our counselors.
+                    </p>
+                    
+                    <div class="space-y-6">
+                        <div class="flex items-center gap-4">
+                            <div class="w-12 h-12 bg-white/10 rounded-full flex items-center justify-center text-brand-orange">
+                                <i class="fas fa-phone-alt"></i>
+                            </div>
+                            <div>
+                                <p class="text-sm text-blue-200">Call Us</p>
+                                <p class="text-xl font-bold">+91 97171 18364</p>
+                            </div>
+                        </div>
+                        
+                        <div class="flex items-center gap-4">
+                            <div class="w-12 h-12 bg-white/10 rounded-full flex items-center justify-center text-brand-orange">
+                                <i class="fas fa-envelope"></i>
+                            </div>
+                            <div>
+                                <p class="text-sm text-blue-200">Email Us</p>
+                                <p class="text-xl font-bold">admissions@raman.edu.in</p>
+                            </div>
+                        </div>
+
+                        <div class="pt-6">
+                            <p class="text-sm text-blue-200 mb-3">Follow us on Social Media</p>
+                            <div class="flex gap-4">
+                                <a href="#" class="w-10 h-10 rounded-full bg-white text-brand-dark flex items-center justify-center hover:bg-brand-orange hover:text-white transition"><i class="fab fa-facebook-f"></i></a>
+                                <a href="#" class="w-10 h-10 rounded-full bg-white text-brand-dark flex items-center justify-center hover:bg-brand-orange hover:text-white transition"><i class="fab fa-instagram"></i></a>
+                                <a href="#" class="w-10 h-10 rounded-full bg-white text-brand-dark flex items-center justify-center hover:bg-brand-orange hover:text-white transition"><i class="fab fa-youtube"></i></a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="bg-white rounded-2xl p-8 text-gray-800 shadow-2xl">
+                    <form onsubmit="sendEmail(); alert('Thank you! We will contact you shortly.');" class="space-y-4">
+                        <h4 class="text-2xl font-bold mb-6 text-gray-900">Book a Free Trial Class</h4>
+                        
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                            <div>
+                                <label class="block text-sm font-medium text-gray-700 mb-1">Parent's Name</label>
+                                <input type="text" required class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-brand-blue focus:border-brand-blue outline-none transition">
+                            </div>
+                            <div>
+                                <label class="block text-sm font-medium text-gray-700 mb-1">Phone Number</label>
+                                <input type="tel" required class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-brand-blue focus:border-brand-blue outline-none transition">
+                            </div>
+                        </div>
+
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                            <div>
+                                <label class="block text-sm font-medium text-gray-700 mb-1">Child's Name</label>
+                                <input type="text" required class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-brand-blue focus:border-brand-blue outline-none transition">
+                            </div>
+                            <div>
+                                <label class="block text-sm font-medium text-gray-700 mb-1">Grade (1-9)</label>
+                                <select class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-brand-blue focus:border-brand-blue outline-none transition">
+                                    <option>Grade 1</option>
+                                    <option>Grade 2</option>
+                                    <option>Grade 3</option>
+                                    <option>Grade 4</option>
+                                    <option>Grade 5</option>
+                                    <option>Grade 6</option>
+                                    <option>Grade 7</option>
+                                    <option>Grade 8</option>
+                                    <option>Grade 9+</option>
+                                </select>
+                            </div>
+                        </div>
+
+                        <div>
+                            <label class="block text-sm font-medium text-gray-700 mb-1">Interested In</label>
+                            <select class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-brand-blue focus:border-brand-blue outline-none transition">
+                                <option>Abacus</option>
+                                <option>Vedic Maths</option>
+                                <option>Robotics</option>
+                                <option>STEM</option>
+                                <option>Not Sure (Need Counselling)</option>
+                            </select>
+                        </div>
+
+                        <div>
+                            <label class="block text-sm font-medium text-gray-700 mb-1">Preferred Center</label>
+                            <select class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-brand-blue focus:border-brand-blue outline-none transition">
+                                <option>Sector 137</option>
+                                <option>Sector 93</option>
+                                <option>Sector 100/104</option>
+                                <option>Other</option>
+                            </select>
+                        </div>
+
+                        <button type="submit" class="w-full bg-brand-orange hover:bg-orange-600 text-white font-bold py-3 rounded-lg shadow-lg hover:shadow-xl transition duration-300 mt-4">
+                            Submit Request
+                        </button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="bg-gray-900 text-gray-400 py-12">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="grid grid-cols-1 md:grid-cols-4 gap-8 border-b border-gray-800 pb-8">
+                <div class="col-span-1 md:col-span-2">
+                    <div class="flex items-center gap-2 mb-4">
+                        <div class="w-8 h-8 bg-brand-blue rounded flex items-center justify-center text-white font-bold">R</div>
+                        <span class="font-display font-bold text-xl text-white">Raman<span class="text-brand-orange">.</span></span>
+                    </div>
+                    <p class="text-sm max-w-sm">Nurturing the next generation of innovators and thinkers in Noida through advanced learning techniques.</p>
+                </div>
+                
+                <div>
+                    <h5 class="text-white font-bold mb-4">Programs</h5>
+                    <ul class="space-y-2 text-sm">
+                        <li><a href="#" class="hover:text-brand-orange transition">Abacus Classes</a></li>
+                        <li><a href="#" class="hover:text-brand-orange transition">Vedic Mathematics</a></li>
+                        <li><a href="#" class="hover:text-brand-orange transition">Robotics Lab</a></li>
+                        <li><a href="#" class="hover:text-brand-orange transition">STEM Workshops</a></li>
+                    </ul>
+                </div>
+
+                <div>
+                    <h5 class="text-white font-bold mb-4">Quick Links</h5>
+                    <ul class="space-y-2 text-sm">
+                        <li><a href="#about" class="hover:text-brand-orange transition">About Us</a></li>
+                        <li><a href="#locations" class="hover:text-brand-orange transition">Centers</a></li>
+                        <li><a href="#contact" class="hover:text-brand-orange transition">Contact</a></li>
+                        <li><a href="#" class="hover:text-brand-orange transition">Privacy Policy</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="pt-8 text-center text-sm">
+                <p>&copy; 2023 Raman Institute. All rights reserved. Designed for Education.</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Scripts -->
+    <script>
+        // API Configuration
+        const apiKey = ""; // Set your API key here
+
+        async function callGemini(prompt) {
+            const url = `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash-preview-09-2025:generateContent?key=${apiKey}`;
+            const payload = {
+                contents: [{ parts: [{ text: prompt }] }]
+            };
+
+            try {
+                const response = await fetch(url, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify(payload)
+                });
+                
+                if (!response.ok) throw new Error("API Call Failed");
+
+                const data = await response.json();
+                return data.candidates[0].content.parts[0].text;
+            } catch (error) {
+                console.error("Gemini Error:", error);
+                return "Oops! Our AI brain is taking a quick nap. Please try again later.";
+            }
+        }
+
+        // --- Tool 1: Course Finder Logic ---
+        async function findCourse() {
+            const grade = document.getElementById('finder-grade').value;
+            const interests = document.getElementById('finder-interests').value;
+            const resultDiv = document.getElementById('finder-result');
+            const contentDiv = document.getElementById('finder-content');
+            const btnText = document.getElementById('finder-btn-text');
+            const loader = document.getElementById('finder-loader');
+
+            if (!interests) {
+                alert("Please enter some interests first!");
+                return;
+            }
+
+            // UI Loading State
+            btnText.textContent = "Analyzing...";
+            loader.classList.remove('hidden');
+            resultDiv.classList.add('hidden');
+
+            const prompt = `You are an admissions counselor at Raman Institute. We teach Abacus (focus, memory), Vedic Maths (speed math), Robotics (building, coding), and STEM (science/art). 
+            Based on this child's profile: Grade: ${grade}, Interests: ${interests}. 
+            Recommend the SINGLE BEST program from our list for them. 
+            Start with the course name in bold. Then explain why in 2 friendly sentences. Be encouraging.`;
+
+            const response = await callGemini(prompt);
+
+            // UI Reset
+            btnText.textContent = "Find Perfect Course ✨";
+            loader.classList.add('hidden');
+            
+            // Show Result
+            contentDiv.innerHTML = marked.parse(response);
+            resultDiv.classList.remove('hidden');
+        }
+
+        // --- Tool 2: Robo-Idea Generator Logic ---
+        async function generateIdea() {
+            const topic = document.getElementById('robo-topic').value;
+            const resultDiv = document.getElementById('robo-result');
+            const contentDiv = document.getElementById('robo-content');
+            const btnText = document.getElementById('robo-btn-text');
+            const loader = document.getElementById('robo-loader');
+
+            if (!topic) {
+                alert("Please enter a topic!");
+                return;
+            }
+
+            // UI Loading State
+            btnText.textContent = "Dreaming up ideas...";
+            loader.classList.remove('hidden');
+            resultDiv.classList.add('hidden');
+
+            const prompt = `You are an enthusiastic Robotics and STEM teacher for kids. 
+            Suggest a creative, safe, and age-appropriate DIY science or robotics project idea based on the topic: "${topic}".
+            
+            Format nicely with Markdown:
+            1. **Project Title** (Make it catchy)
+            2. **What you'll need** (Simple household items or basic craft supplies)
+            3. **How it works** (1 sentence explanation of the science)
+            4. **Fun Fact** (Related to the topic)
+            
+            Keep it under 100 words total. Use emojis!`;
+
+            const response = await callGemini(prompt);
+
+            // UI Reset
+            btnText.textContent = "Generate Project Idea ✨";
+            loader.classList.add('hidden');
+
+            // Show Result
+            contentDiv.innerHTML = marked.parse(response);
+            resultDiv.classList.remove('hidden');
+        }
+
+        // Mobile Menu Toggle
+        const btn = document.getElementById('mobile-menu-btn');
+        const menu = document.getElementById('mobile-menu');
+
+        btn.addEventListener('click', () => {
+            menu.classList.toggle('hidden');
+        });
+
+        // Close mobile menu when a link is clicked
+        document.querySelectorAll('#mobile-menu a').forEach(link => {
+            link.addEventListener('click', () => {
+                menu.classList.add('hidden');
+            });
+        });
+
+        // Navbar Scroll Effect
+        const navbar = document.getElementById('navbar');
+        window.addEventListener('scroll', () => {
+            if (window.scrollY > 50) {
+                navbar.classList.add('shadow-md');
+                navbar.classList.replace('py-4', 'py-2');
+            } else {
+                navbar.classList.remove('shadow-md');
+                navbar.classList.replace('py-2', 'py-4');
+            }
+        });
+
+        function sendEmail() {
+            Email.send({
+                Host: "smtp.gmail.com",
+                Username: "ramaninstitutes@gmail.com",
+                Password: "Gurudev@01",
+                To: 'mailtosukhbir@gmail.com',
+                From: "ramaninstitutes@gmail.com",
+                Subject: "Sending Email using javascript",
+                Body: "Well that was easy!!",
+            })
+                .then(function (message) {
+                    alert("mail sent successfully")
+                });
+        }
+
+
+
+
+    </script>
+</body>
+</html>
